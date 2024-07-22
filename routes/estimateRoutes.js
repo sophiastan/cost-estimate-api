@@ -12,8 +12,8 @@ const validateOrders = (orders) => {
     throw new Error('Orders cannot be empty');
   }
   orders.forEach(order => {
-    if (!order.type || !order.item || !order.units || !order.rate) {
-      throw new Error('Each order must include type, item, units, rate');
+    if (!order.type || !order.item || !order.units || !order.rate || order.margin === undefined) {
+      throw new Error('Each order must include type, item, units, rate, and margin');
     }
   });
 };
@@ -31,13 +31,13 @@ const processOrders = (orders) => {
 
   const totalCost = processedOrders.reduce((sum, item) => sum + item.cost, 0);
   const totalPrice = processedOrders.reduce((sum, item) => sum + item.price, 0);
-  const avgMargin = orders.reduce((sum, order) => sum + (order.margin || 0), 0) / orders.length;
+  const margin = orders.reduce((sum, order) => sum + (order.margin || 0), 0) / orders.length;
 
   return {
     processedOrders,
     total: {
       cost: totalCost,
-      avgMargin,
+      margin,
       price: totalPrice
     }
   };
