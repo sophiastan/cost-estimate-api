@@ -1,6 +1,7 @@
 const request = require('supertest');
 const mongoose = require('mongoose');
-const app = require('../index'); 
+const app = require('../index'); // Ensure this path is correct
+const { Estimate } = require('../models/Estimate'); 
 
 beforeAll(async () => {
   await mongoose.connect(process.env.MONGODB_URI, {

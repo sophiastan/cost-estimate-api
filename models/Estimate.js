@@ -19,7 +19,7 @@ const estimateSchema = new mongoose.Schema({
   }],
   total: {
     cost: Number,
-    avgMargin: Number,
+    margin: Number,  // Rename avgMargin to margin
     price: Number
   }
 });
