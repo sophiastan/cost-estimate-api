@@ -14,7 +14,6 @@ mongoose.connect(process.env.MONGODB_URI).then(() => {
   console.error('Connection error:', error);
 });
 
-// app.use(express.json());
 app.use(bodyParser.json());
 
 // Use the routes defined in estimateRoutes.js
