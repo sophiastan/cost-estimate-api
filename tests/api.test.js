@@ -1,7 +1,6 @@
 const request = require('supertest');
 const mongoose = require('mongoose');
 const app = require('../index'); 
-const { Estimate } = require('../models/Estimate'); 
 
 beforeAll(async () => {
   await mongoose.connect(process.env.MONGODB_URI, {
@@ -22,7 +21,7 @@ describe('API Tests', () => {
     const response = await request(app)
       .post('/estimates')
       .send({
-        order: [
+        orders: [
           { type: 'labor', item: 'digging', units: 5, time: 2, rate: 20, margin: 30 },
           { type: 'material', item: 'cement', units: 10, rate: 15, margin: 20 }
         ]

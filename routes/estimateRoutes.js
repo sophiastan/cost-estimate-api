@@ -1,9 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const { Estimate } = require('../models/Estimate'); // Ensure correct path
-const calculateCostAndPrice = require('../utils/calculateCostAndPrice'); // Ensure correct path
+const { Estimate } = require('../models/Estimate');
+const calculateCostAndPrice = require('../utils/calculateCostAndPrice'); 
 
-// Function to process orders and calculate totals
+// Validate orders
+const validateOrders = (orders) => {
+  if (!Array.isArray(orders)) {
+    throw new Error('Orders should be an array');
+  }
+  if (orders.length === 0) {
+    throw new Error('Orders cannot be empty');
+  }
+  orders.forEach(order => {
+    if (!order.type || !order.item || !order.units || !order.rate) {
+      throw new Error('Each order must include type, item, units, rate');
+    }
+  });
+};
+
+// Process orders and calculate totals
 const processOrders = (orders) => {
   const processedOrders = orders.map(orderData => {
     const { cost, price } = calculateCostAndPrice(orderData);
@@ -42,6 +57,8 @@ router.get('/estimates', async (req, res) => {
 router.post('/estimates', async (req, res) => {
   try {
     const { orders } = req.body;
+    validateOrders(orders);
+
     const { processedOrders, total } = processOrders(orders);
 
     const estimate = new Estimate({
@@ -52,7 +69,7 @@ router.post('/estimates', async (req, res) => {
     await estimate.save();
     res.status(201).json(estimate);
   } catch (error) {
-    res.status(500).json({ message: 'Error creating estimate', error: error.message });
+    res.status(400).json({ message: 'Error creating estimate', error: error.message });
   }
 });
 
@@ -75,7 +92,9 @@ router.put('/estimates/:id', async (req, res) => {
     const updatedData = req.body;
 
     if (updatedData.items) {
-      const { processedOrders, total } = processOrders(updatedData.items.map(item => item.order[0]));
+      validateOrders(updatedData.items.flatMap(item => item.order));
+
+      const { processedOrders, total } = processOrders(updatedData.items.flatMap(item => item.order));
 
       updatedData.items = processedOrders;
       updatedData.total = total;
@@ -91,7 +110,7 @@ router.put('/estimates/:id', async (req, res) => {
     }
     res.status(200).json(updatedEstimate);
   } catch (error) {
-    res.status(500).json({ message: 'Error updating estimate', error: error.message });
+    res.status(400).json({ message: 'Error updating estimate', error: error.message });
   }
 });
 
