@@ -14,13 +14,15 @@ mongoose.connect(process.env.MONGODB_URI).then(() => {
   console.error('Connection error:', error);
 });
 
+// Middleware to parse JSON bodies from incoming requests
 app.use(bodyParser.json());
 
-// Use the routes defined in estimateRoutes.js
+// Use the routes defined in estimateRoutes.js to handle request
 app.use('/', estimateRoutes);
 
+// Start the server and listen on the specified port
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-module.exports = app; // Export the app for testing
+module.exports = app; // Export the Express app for testing

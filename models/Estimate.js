@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
-// Define OrderItem schema
+/**
+ * Schema for individual order items.
+ * Represents a single entry in the estimate.
+ */
 const orderItemSchema = new mongoose.Schema({
   type: String,
   item: String,
@@ -10,7 +13,9 @@ const orderItemSchema = new mongoose.Schema({
   margin: Number,
 });
 
-// Define Estimate schema
+/**
+ * Schema for an estimate, which includes multiple order items.
+ */
 const estimateSchema = new mongoose.Schema({
   items: [{
     order: [orderItemSchema],
@@ -19,7 +24,7 @@ const estimateSchema = new mongoose.Schema({
   }],
   total: {
     cost: Number,
-    margin: Number,  // Rename avgMargin to margin
+    margin: Number, 
     price: Number
   }
 });
