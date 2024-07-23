@@ -299,41 +299,7 @@ Here are the available API endpoints you can test using tools like Postman or cu
 * Response Example:
 ```json
 {
-    "_id": "5f50c31b9a0b5a3f8c8a576f",
-    "items": [
-        {
-            "order": [
-                {
-                    "type": "labor",
-                    "item": "digging",
-                    "units": 5,
-                    "time": 2,
-                    "rate": 20,
-                    "margin": 30
-                }
-            ],
-            "cost": 200,
-            "price": 260
-        },
-        {
-            "order": [
-                {
-                    "type": "material",
-                    "item": "cement",
-                    "units": 10,
-                    "rate": 15,
-                    "margin": 20
-                }
-            ],
-            "cost": 150,
-            "price": 180
-        }
-    ],
-    "total": {
-        "cost": 350,
-        "margin": 25,
-        "price": 440
-    }
+    "success": true
 }
 ```
 ## Troubleshooting
