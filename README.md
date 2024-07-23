@@ -1,6 +1,6 @@
 # Estimate API Service
 
-This project provides an API service for estimating the cost and price of a project. It models a simplified workflow for a paving contractor who needs to provide customers with a price based on various factors such as labor, materials, equipment, and duration.
+This project provides an API service for estimating project costs and prices using CRUD operations to manage estimates in a database. It models a streamlined workflow for paving contractors who need to provide accurate pricing to customers based on factors such as labor, materials, equipment, and time.
 
 ## Prerequisites
 
@@ -14,7 +14,7 @@ This project provides an API service for estimating the cost and price of a proj
 
 Clone the repository to your local machine using Git:
 ```sh
-git clone https://github.com/yourusername/your-repository.git
+git clone https://github.com/sophiastan/cost-estimate-api.git
 cd your-repository
 ```
 ### 2. Install Dependencies
